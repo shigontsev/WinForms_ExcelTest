@@ -1,8 +1,8 @@
 ﻿Public Class StData
-    'Static Dim FileName As String = ""
     Public Shared FileName As String
     Public Shared connectionString As String
 
+    'Генерация ссылки на колонку в Excel, например 27 = "AA"
     Public Shared Function GetExcelColumnName(columnNumber As Integer) As String
         Dim dividend As Integer = columnNumber
         Dim columnName As String = String.Empty

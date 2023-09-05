@@ -9,6 +9,11 @@ Public Class Form1
 
     End Sub
 
+    ''' <summary>
+    ''' Выбор Excel файла через диалоговое окно
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim OpenDialog As New OpenFileDialog, FileName As String = ""
 
@@ -54,6 +59,11 @@ Public Class Form1
         'exl = Nothing
     End Sub
 
+    ''' <summary>
+    ''' Переход к Форме ConfigColums
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button_OpenConfigColums_Click(sender As Object, e As EventArgs) Handles Button_OpenConfigColums.Click
 
         Dim newForm As New Form_ConfigColums
@@ -103,6 +113,11 @@ Public Class Form1
         'excelApp.Quit()
     End Sub
 
+    ''' <summary>
+    ''' Переход к Форме редактирования ячейки
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button_Edit_Click(sender As Object, e As EventArgs) Handles Button_Edit.Click
         Dim newForm As New Form_EditCell
 

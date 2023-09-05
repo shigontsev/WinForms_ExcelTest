@@ -30,11 +30,11 @@ Partial Class Form_ConfigColums
         Button_Save = New Button()
         ListBox_Columns = New ListBox()
         DataGridView1 = New DataGridView()
-        Button_Right = New Button()
-        Button_Left = New Button()
         Column1 = New DataGridViewTextBoxColumn()
         Column2 = New DataGridViewTextBoxColumn()
         Column3 = New DataGridViewTextBoxColumn()
+        Button_Right = New Button()
+        Button_Left = New Button()
         CType(NumericUpDown_RowN, ComponentModel.ISupportInitialize).BeginInit()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -51,11 +51,11 @@ Partial Class Form_ConfigColums
         ' NumericUpDown_RowN
         ' 
         NumericUpDown_RowN.Location = New Point(130, 25)
-        NumericUpDown_RowN.Minimum = New Decimal(New Integer() {3, 0, 0, 0})
+        NumericUpDown_RowN.Minimum = New Decimal(New Integer() {4, 0, 0, 0})
         NumericUpDown_RowN.Name = "NumericUpDown_RowN"
         NumericUpDown_RowN.Size = New Size(120, 23)
         NumericUpDown_RowN.TabIndex = 1
-        NumericUpDown_RowN.Value = New Decimal(New Integer() {3, 0, 0, 0})
+        NumericUpDown_RowN.Value = New Decimal(New Integer() {4, 0, 0, 0})
         ' 
         ' TextBox_Row
         ' 
@@ -102,6 +102,7 @@ Partial Class Form_ConfigColums
         ' 
         ' DataGridView1
         ' 
+        DataGridView1.AllowUserToAddRows = False
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridView1.Columns.AddRange(New DataGridViewColumn() {Column1, Column2, Column3})
         DataGridView1.Location = New Point(441, 64)
@@ -109,6 +110,24 @@ Partial Class Form_ConfigColums
         DataGridView1.RowTemplate.Height = 25
         DataGridView1.Size = New Size(506, 259)
         DataGridView1.TabIndex = 17
+        ' 
+        ' Column1
+        ' 
+        Column1.HeaderText = "Index"
+        Column1.Name = "Column1"
+        Column1.ReadOnly = True
+        ' 
+        ' Column2
+        ' 
+        Column2.HeaderText = "Column_Name"
+        Column2.Name = "Column2"
+        Column2.ReadOnly = True
+        ' 
+        ' Column3
+        ' 
+        Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        Column3.HeaderText = "Value"
+        Column3.Name = "Column3"
         ' 
         ' Button_Right
         ' 
@@ -129,24 +148,6 @@ Partial Class Form_ConfigColums
         Button_Left.TabIndex = 19
         Button_Left.Text = "<-"
         Button_Left.UseVisualStyleBackColor = True
-        ' 
-        ' Column1
-        ' 
-        Column1.HeaderText = "Index"
-        Column1.Name = "Column1"
-        Column1.ReadOnly = True
-        ' 
-        ' Column2
-        ' 
-        Column2.HeaderText = "Column_Name"
-        Column2.Name = "Column2"
-        Column2.ReadOnly = True
-        ' 
-        ' Column3
-        ' 
-        Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-        Column3.HeaderText = "Value"
-        Column3.Name = "Column3"
         ' 
         ' Form_ConfigColums
         ' 

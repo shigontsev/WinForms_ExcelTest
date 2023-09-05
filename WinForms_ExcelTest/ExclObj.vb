@@ -20,6 +20,8 @@ Public Class ExclObj
         exlSheet = exl.Workbooks(1).Worksheets(1) 'Переходим к первому листу
     End Sub
 
+    'Освобождает память от Excel файла
+    'P.S.: у меня мало опыта, возможно не все добавил чтобы высвободить память
     Public Sub Dispose() Implements IDisposable.Dispose
         exl.Quit()
         exlSheet = Nothing

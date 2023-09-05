@@ -10,7 +10,7 @@ Public Class Form_ConfigColums
 
     Public Sub New()
         InitializeComponent()
-        NumericUpDown_RowN.Value = 3
+        NumericUpDown_RowN.Value = 4
         Dim sql As String = "SELECT * FROM [Sheet1$]"
 
         'Using connection As New OleDbConnection(StData.connectionString)
@@ -61,14 +61,21 @@ Public Class Form_ConfigColums
         Dim list As New List(Of String)
 
 
-        list.AddRange(GetListFromExcelRow(Table_Excel.exlSheet, NumericUpDown_RowN.Value))
+        'list.AddRange(GetListFromExcelRow(Table_Excel.exlSheet, NumericUpDown_RowN.Value))
+        list.AddRange(GetListFromExcelRow(Table_Excel.exlSheet, 3))
 
+        'Очистка от не нужных пустых колонок в конце
         ListBox_Columns.Items.AddRange(list.GetRange(0, list.Count - 20).ToArray())
     End Sub
 
+    ''' <summary>
+    ''' Переключение строки
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub NumericUpDown_RowN_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown_RowN.ValueChanged
-        If (NumericUpDown_RowN.Value < 3) Then
-            NumericUpDown_RowN.Value = 3
+        If (NumericUpDown_RowN.Value < 4) Then
+            NumericUpDown_RowN.Value = 4
         End If
 
         'Using table As New ExclObj()
@@ -132,15 +139,30 @@ Public Class Form_ConfigColums
 
     'End Sub
 
+    ''' <summary>
+    ''' Событие при закрытии формы
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Form_ConfigColums_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Table_Excel.Dispose()
     End Sub
 
+    ''' <summary>
+    ''' Выход из формы
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button_Exit_Click(sender As Object, e As EventArgs) Handles Button_Exit.Click
         Me.Close()
     End Sub
 
-
+    ''' <summary>
+    ''' Возвращает строку с данными из Excel по указанному индексу rowIndex
+    ''' </summary>
+    ''' <param name="worksheet"></param>
+    ''' <param name="rowIndex"></param>
+    ''' <returns></returns>
     Private Function GetListFromExcelRow(ByVal worksheet As Excel.Worksheet, ByVal rowIndex As Integer) As List(Of String)
         Dim emptyCellsCount As Integer = 0
         Dim columnIndex As Integer = 1
@@ -158,7 +180,6 @@ Public Class Form_ConfigColums
             'Dim cellValue As String = CType(worksheet.Cells(rowIndex, columnIndex), Excel.Range).Value.ToString()
             If String.IsNullOrEmpty(cellValue) Then
                 emptyCellsCount += 1
-                'стоит ли добавлять
                 list.Add(cellValue)
             Else
                 emptyCellsCount = 0
@@ -176,6 +197,11 @@ Public Class Form_ConfigColums
         Return list
     End Function
 
+    ''' <summary>
+    ''' Добавление в GridView Ячейки для редактирования
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button_Right_Click(sender As Object, e As EventArgs) Handles Button_Right.Click
         ' Получить индекс выделенной строки в ListBox
         Dim selectedIndex As Integer = ListBox_Columns.SelectedIndex
@@ -214,6 +240,12 @@ Public Class Form_ConfigColums
         End If
     End Sub
 
+    ''' <summary>
+    ''' Удаление из GridView Ячейки
+    ''' Для удаления выделяется целая строка в GridWiew
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button_Left_Click(sender As Object, e As EventArgs) Handles Button_Left.Click
         ' Проверить, выделена ли строка в DataGridView
         If DataGridView1.SelectedRows.Count > 0 Then
@@ -225,6 +257,11 @@ Public Class Form_ConfigColums
         End If
     End Sub
 
+    ''' <summary>
+    ''' Сохраняет прогресс редактирования ячейки
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button_Save_Click(sender As Object, e As EventArgs) Handles Button_Save.Click
         ' Проверить, есть ли строка с таким же индексом в DataGridView
         Dim newDataCell_Exists As Boolean = False
@@ -256,6 +293,11 @@ Public Class Form_ConfigColums
         End If
     End Sub
 
+    ''' <summary>
+    ''' Отмена прогресса изменения ячеек
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub Button_Cancel_Click(sender As Object, e As EventArgs) Handles Button_Cancel.Click
         DataGridView1.Rows.Clear()
     End Sub

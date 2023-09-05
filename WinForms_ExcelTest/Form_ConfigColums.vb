@@ -11,52 +11,6 @@ Public Class Form_ConfigColums
     Public Sub New()
         InitializeComponent()
         NumericUpDown_RowN.Value = 4
-        Dim sql As String = "SELECT * FROM [Sheet1$]"
-
-        'Using connection As New OleDbConnection(StData.connectionString)
-        '    connection.Open()
-
-        '    Using command As New OleDbCommand(sql, connection)
-        '        Using reader As OleDbDataReader = command.ExecuteReader()
-        '            While reader.Read()
-        '                Dim row As New List(Of String) From {
-        '                reader.GetString(0),
-        '                reader.GetString(1),
-        '                reader.GetString(2),
-        '                reader.GetString(3)
-        '            }
-
-
-
-        '                'TextBox_Row.Text = row
-        '                Console.WriteLine(row)
-        '            End While
-        '        End Using
-        '    End Using
-        'End Using
-
-
-        'Dim exl As New Excel.Application
-        'Dim exlSheet As Excel.Worksheet
-
-        'exl.Workbooks.Open(Application.StartupPath & StData.FileName)
-        ''exl.Workbooks.Add()
-        'exl.Visible = True
-
-        'exlSheet = exl.Workbooks(1).Worksheets(1) 'Переходим к первому листу
-
-        'Dim exl As New Excel.Application
-        'Dim exlSheet As Excel.Worksheet
-
-        'exl.Workbooks.Open(Application.StartupPath & StData.FileName)
-        ''exl.Workbooks.Add()
-        'exl.Visible = True
-
-        'exlSheet = exl.Workbooks(1).Worksheets(1) 'Переходим к первому листу
-
-        'exl.Quit()
-        'exlSheet = Nothing
-        'exl = Nothing
 
         Dim list As New List(Of String)
 
@@ -78,20 +32,10 @@ Public Class Form_ConfigColums
             NumericUpDown_RowN.Value = 4
         End If
 
-        'Using table As New ExclObj()
-        '    TextBox_Row.Text = table.exlSheet.Range($"D{NumericUpDown_RowN.Value}").Value
-
-        'End Using
-
-        'TextBox_Row.Text = Table_Excel.exlSheet.Range($"E{NumericUpDown_RowN.Value}").Value
         Dim row20(,) As Object
         row20 = Table_Excel.exlSheet.Range($"A{NumericUpDown_RowN.Value}", $"T{NumericUpDown_RowN.Value}").Value
 
-        'For Each i As Object In row20
-        '    Console.Write("{0} ", i)
-        'Next
-        'TextBox_Row.Text = String.Join("|", row20)
-        'Determine the dimensions of the array.
+
         Dim i As Integer
         Dim valueStr As String = ""
         For i = 1 To row20.Length
@@ -109,35 +53,8 @@ Public Class Form_ConfigColums
         'Очистка списка в GridView
         DataGridView1.Rows.Clear()
 
-        'Dim iRows As Long
-        'Dim iCols As Long
-        'iRows = row20.GetUpperBound(0)
-        'iCols = row20.GetUpperBound(1)
-
-        ''Build a string that contains the data of the array.
-        'Dim valueString As String
-        'valueString = "Array Data" + vbCrLf
-
-        'Dim rowCounter As Long
-        'Dim colCounter As Long
-        'For rowCounter = 1 To iRows
-        '    For colCounter = 1 To iCols
-
-        '        'Write the next value into the string.
-        '        valueString = String.Concat(valueString,
-        '            row20(rowCounter, colCounter).ToString() + ", ")
-
-        '    Next colCounter
-        '    'Write in a new line.
-        '    valueString = String.Concat(valueString, vbCrLf)
-        'Next rowCounter
-
     End Sub
 
-    'Private Sub Form_ConfigColums_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
-    '    'Table_Excel.Dispose()
-
-    'End Sub
 
     ''' <summary>
     ''' Событие при закрытии формы
@@ -168,16 +85,13 @@ Public Class Form_ConfigColums
         Dim columnIndex As Integer = 1
         Dim list As New List(Of String)
 
-        'worksheet.Application.Interactive = False
         While emptyCellsCount < 20
-            'Dim cellValueObj As Object = CType(worksheet.Cells(rowIndex, columnIndex), Excel.Range).Value.ToString()
             Dim cellValue As String
             If CType(worksheet.Cells(rowIndex, columnIndex), Excel.Range).Value Is Nothing Then
                 cellValue = ""
             Else
                 cellValue = CType(worksheet.Cells(rowIndex, columnIndex), Excel.Range).Value.ToString()
             End If
-            'Dim cellValue As String = CType(worksheet.Cells(rowIndex, columnIndex), Excel.Range).Value.ToString()
             If String.IsNullOrEmpty(cellValue) Then
                 emptyCellsCount += 1
                 list.Add(cellValue)
@@ -192,7 +106,6 @@ Public Class Form_ConfigColums
                 Exit While
             End If
         End While
-        'worksheet.Application.Interactive = True
 
         Return list
     End Function
@@ -203,23 +116,20 @@ Public Class Form_ConfigColums
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub Button_Right_Click(sender As Object, e As EventArgs) Handles Button_Right.Click
+        If ListBox_Columns.SelectedItems.Count < 1 Then
+            Exit Sub
+        End If
         ' Получить индекс выделенной строки в ListBox
         Dim selectedIndex As Integer = ListBox_Columns.SelectedIndex
 
         ' Получить соответствующую строку из ListBox
         Dim selectedString As String = ListBox_Columns.Items(selectedIndex).ToString()
 
-        '' Добавить строку в DataGridView
-        'Dim row As String() = New String() {selectedIndex.ToString(), selectedString}
-
-        '' Добавить строку в DataGridView
-        'DataGridView1.Rows.Add(row)
-
         ' Проверить, есть ли строка с таким же индексом в DataGridView
         Dim rowExists As Boolean = False
         For Each row As DataGridViewRow In DataGridView1.Rows
             If row.Cells(0).Value IsNot Nothing AndAlso row.Cells(0).Value.ToString() = String.Format($"{StData.GetExcelColumnName(selectedIndex + 1)}{NumericUpDown_RowN.Value}") Then
-                'If row.Cells(0).Value IsNot Nothing AndAlso row.Cells(0).Value.ToString() = selectedIndex.ToString() Then
+
                 rowExists = True
                 Exit For
             End If
@@ -233,8 +143,7 @@ Public Class Form_ConfigColums
             Else
                 selectedCell = Table_Excel.exlSheet.Range(String.Format($"{StData.GetExcelColumnName(selectedIndex + 1)}{NumericUpDown_RowN.Value}")).Value.ToString()
             End If
-            'Dim row As String() = New String() {selectedIndex.ToString(), selectedString}
-            'Dim row As String() = New String() {String.Format($"{StData.GetExcelColumnName(selectedIndex + 1)}{NumericUpDown_RowN.Value}"), selectedString}
+
             Dim row As String() = New String() {String.Format($"{StData.GetExcelColumnName(selectedIndex + 1)}{NumericUpDown_RowN.Value}"), selectedString, selectedCell}
             DataGridView1.Rows.Add(row)
         End If
@@ -277,7 +186,7 @@ Public Class Form_ConfigColums
                     OldCell = ""
                 End If
                 'Запись новых данных
-                If row.Cells(2).Value Is Nothing AndAlso Not OldCell = "" Then
+                If row.Cells(2).Value Is Nothing AndAlso Not OldCell = row.Cells(2).Value Then
                     Table_Excel.exlSheet.Range(row.Cells(0).Value.ToString()).Value = ""
                     newDataCell_Exists = True
                 ElseIf row.Cells(2).Value IsNot Nothing AndAlso Not row.Cells(2).Value.ToString() = OldCell Then

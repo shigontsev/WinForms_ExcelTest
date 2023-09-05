@@ -25,7 +25,6 @@ Partial Class Form1
         TextBox1 = New TextBox()
         Button1 = New Button()
         Button_OpenConfigColums = New Button()
-        Button2 = New Button()
         Button_Edit = New Button()
         Label1 = New Label()
         SuspendLayout()
@@ -55,15 +54,6 @@ Partial Class Form1
         Button_OpenConfigColums.Text = "ConfigColums"
         Button_OpenConfigColums.UseVisualStyleBackColor = True
         ' 
-        ' Button2
-        ' 
-        Button2.Location = New Point(418, 259)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(75, 23)
-        Button2.TabIndex = 3
-        Button2.Text = "Button2"
-        Button2.UseVisualStyleBackColor = True
-        ' 
         ' Button_Edit
         ' 
         Button_Edit.Location = New Point(226, 245)
@@ -90,7 +80,6 @@ Partial Class Form1
         ClientSize = New Size(800, 450)
         Controls.Add(Label1)
         Controls.Add(Button_Edit)
-        Controls.Add(Button2)
         Controls.Add(Button_OpenConfigColums)
         Controls.Add(Button1)
         Controls.Add(TextBox1)
@@ -103,7 +92,6 @@ Partial Class Form1
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Button_OpenConfigColums As Button
-    Friend WithEvents Button2 As Button
     Friend WithEvents Button_Edit As Button
     Friend WithEvents Label1 As Label
 End Class

@@ -4,8 +4,8 @@
 Public Class Form1
     Public Sub New()
         InitializeComponent()
-        TextBox1.Text = "C:\Users\Yurii_S\Desktop\TaskByVBA\Pechi.xlsx"
-        StData.FileName = TextBox1.Text
+        'TextBox1.Text = "C:\Users\Yurii_S\Desktop\TaskByVBA\Pechi.xlsx"
+        'StData.FileName = TextBox1.Text
 
     End Sub
 
@@ -44,19 +44,6 @@ Public Class Form1
 
 
         TextBox1.Text = StData.FileName
-
-        'Dim exl As New Excel.Application
-        'Dim exlSheet As Excel.Worksheet
-
-        'exl.Workbooks.Open(Application.StartupPath & StData.FileName)
-        ''exl.Workbooks.Add()
-        'exl.Visible = True
-
-        'exlSheet = exl.Workbooks(1).Worksheets(1) 'Переходим к первому листу
-
-        'exl.Quit()
-        'exlSheet = Nothing
-        'exl = Nothing
     End Sub
 
     ''' <summary>
@@ -65,53 +52,13 @@ Public Class Form1
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub Button_OpenConfigColums_Click(sender As Object, e As EventArgs) Handles Button_OpenConfigColums.Click
+        If TextBox1.Text IsNot Nothing AndAlso Not TextBox1.Text = "" Then
 
-        Dim newForm As New Form_ConfigColums
-        newForm.Show()
+            Dim newForm As New Form_ConfigColums
+            newForm.Show()
+        End If
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim exl As New Excel.Application
-        Dim exlSheet As Excel.Worksheet
-
-        exl.Workbooks.Open(StData.FileName)
-        'exl.Workbooks.Add()
-        exl.Visible = True
-
-        exlSheet = exl.Workbooks(1).Worksheets(1) 'Переходим к первому листу
-        Dim str As String = exlSheet.Range("D3").Value
-        exl.Quit()
-        exlSheet = Nothing
-        exl = Nothing
-
-        'Dim Exc As Object
-        'Exc = CreateObject("Excel.Application")
-        'Exc.Workbooks.Open(StData.FileName).Activate()
-        ''Exc.Cells(1, 1) = "ПРИВЕТ!"
-        ''Exc.Rows(7).Insert(Shift:=-4121)
-        'Exc.ActiveWorkbook.Save()
-        'Exc.ActiveWorkbook.Close()
-        'Exc.Quit()
-        'Exc = Nothing
-
-        'Dim excelApp As New Excel.Application()
-        'excelApp.Visible = True
-
-        'Dim workbook As Excel.Workbook = excelApp.Workbooks.Open(StData.FileName)
-        'Dim worksheet As Excel.Worksheet = workbook.Sheets("Печи")
-
-        ''Чтение данных из Excel файла
-        'Dim range As Excel.Range = worksheet.Range("A1:B5")
-        'For Each cell In range
-        '    'Console.WriteLine(cell.Value)
-        '    TextBox1.Text += cell.Value
-
-        'Next
-
-        'workbook.Close()
-
-        'excelApp.Quit()
-    End Sub
 
     ''' <summary>
     ''' Переход к Форме редактирования ячейки
@@ -119,8 +66,11 @@ Public Class Form1
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub Button_Edit_Click(sender As Object, e As EventArgs) Handles Button_Edit.Click
-        Dim newForm As New Form_EditCell
+        If TextBox1.Text IsNot Nothing AndAlso Not TextBox1.Text = "" Then
 
-        newForm.Show()
+            Dim newForm As New Form_EditCell
+
+            newForm.Show()
+        End If
     End Sub
 End Class
